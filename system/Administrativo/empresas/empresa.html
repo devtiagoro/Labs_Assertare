@@ -53,7 +53,7 @@
         <section class="page-head">
           <div>
             <h1>Empresas</h1>
-            <p>Empresas/clientes listados um abaixo do outro para facilitar a visualização.</p>
+            <p>Gerenciar empresas cadastradas no sistema.</p>
           </div>
           <button type="button" id="openCompanyModal" class="btn primary">+ Nova empresa</button>
         </section>
@@ -173,10 +173,68 @@
         <h2 id="viewModalTitle">Informações completas da empresa</h2>
         <button type="button" class="close-modal" id="closeViewModal">×</button>
       </div>
-      <div id="companyViewContent" class="company-view-content"></div>
-      <div class="modal-actions">
-        <button type="button" class="btn secondary" id="closeViewModalBottom">Fechar</button>
+
+      <div class="tab-buttons" id="viewTabButtons">
+        <button type="button" class="tab-btn active" data-view-tab="cadastral">Informações cadastrais</button>
+        <button type="button" class="tab-btn" data-view-tab="conta">Conta bancária</button>
+        <button type="button" class="tab-btn" data-view-tab="pessoas">Cliente e fornecedores</button>
       </div>
+
+      <form id="companyViewForm" class="company-view-content">
+        <input type="hidden" name="companyId" id="viewCompanyId">
+
+        <div class="tab-panel active" data-view-panel="cadastral">
+          <div class="form-grid">
+            <label>Nome da empresa<input name="nome" required></label>
+            <label>CNPJ<input name="cnpj" required></label>
+            <label>Responsável<input name="responsavel" required></label>
+            <label>Email<input type="email" name="email" required></label>
+            <label>Telefone<input name="telefone" required></label>
+            <label>Status
+              <select name="status" required>
+                <option value="ativa">Ativa</option>
+                <option value="implantacao">Implantação</option>
+                <option value="inativa">Inativa</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-view-panel="conta">
+          <div class="form-grid">
+            <label>Banco<input name="banco" required></label>
+            <label>Agência<input name="agencia" required></label>
+            <label>Conta<input name="conta" required></label>
+            <label>Tipo da conta
+              <select name="tipoConta" required>
+                <option value="Conta corrente">Conta corrente</option>
+                <option value="Poupança">Poupança</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-view-panel="pessoas">
+          <div class="form-grid two-columns">
+            <fieldset>
+              <legend>Cliente</legend>
+              <label>Nome do cliente<input name="clienteNome" required></label>
+              <label>CPF/CNPJ do cliente<input name="clienteDocumento" required></label>
+            </fieldset>
+
+            <fieldset>
+              <legend>Fornecedor</legend>
+              <label>Nome do fornecedor<input name="fornecedorNome" required></label>
+              <label>CPF/CNPJ do fornecedor<input name="fornecedorDocumento" required></label>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn secondary" id="closeViewModalBottom">Fechar</button>
+          <button type="submit" class="btn primary">Salvar alterações</button>
+        </div>
+      </form>
     </div>
   </div>
 

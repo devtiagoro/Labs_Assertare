@@ -25,17 +25,21 @@ const modal = document.getElementById("companyModal");
 const openModalButton = document.getElementById("openCompanyModal");
 const closeModalButton = document.getElementById("closeCompanyModal");
 const form = document.getElementById("companyForm");
-const tabButtons = Array.from(document.querySelectorAll(".tab-btn"));
-const tabPanels = Array.from(document.querySelectorAll(".tab-panel"));
+const tabButtons = Array.from(document.querySelectorAll("[data-tab]"));
+const tabPanels = Array.from(document.querySelectorAll("[data-panel]"));
 const previousTabButton = document.getElementById("previousTab");
 const nextTabButton = document.getElementById("nextTab");
 
 const companyViewModal = document.getElementById("companyViewModal");
-const companyViewContent = document.getElementById("companyViewContent");
+const companyViewForm = document.getElementById("companyViewForm");
+const viewCompanyIdInput = document.getElementById("viewCompanyId");
+const viewTabButtons = Array.from(document.querySelectorAll("[data-view-tab]"));
+const viewTabPanels = Array.from(document.querySelectorAll("[data-view-panel]"));
 const closeViewModal = document.getElementById("closeViewModal");
 const closeViewModalBottom = document.getElementById("closeViewModalBottom");
 
 let activeTabIndex = 0;
+let activeViewTabIndex = 0;
 
 function formatStatus(status) {
   if (status === "ativa") return "Ativa";
@@ -63,44 +67,35 @@ function closeCreateModal() {
   form.reset();
 }
 
+function setViewTab(index) {
+  activeViewTabIndex = index;
+  viewTabButtons.forEach((button, idx) => button.classList.toggle("active", idx === index));
+  viewTabPanels.forEach((panel, idx) => panel.classList.toggle("active", idx === index));
+}
+
 function openViewModal(companyId) {
   const company = companies.find((item) => item.id === companyId);
   if (!company) return;
 
-  companyViewContent.innerHTML = `
-    <section class="view-section">
-      <h3>Informações cadastrais</h3>
-      <div class="view-grid">
-        <div><strong>Empresa:</strong> ${company.nome}</div>
-        <div><strong>CNPJ:</strong> ${company.cnpj}</div>
-        <div><strong>Responsável:</strong> ${company.responsavel}</div>
-        <div><strong>Email:</strong> ${company.email}</div>
-        <div><strong>Telefone:</strong> ${company.telefone}</div>
-        <div><strong>Status:</strong> ${formatStatus(company.status)}</div>
-      </div>
-    </section>
+  viewCompanyIdInput.value = String(company.id);
+  companyViewForm.elements.nome.value = company.nome;
+  companyViewForm.elements.cnpj.value = company.cnpj;
+  companyViewForm.elements.responsavel.value = company.responsavel;
+  companyViewForm.elements.email.value = company.email;
+  companyViewForm.elements.telefone.value = company.telefone;
+  companyViewForm.elements.status.value = company.status;
 
-    <section class="view-section">
-      <h3>Conta bancária</h3>
-      <div class="view-grid">
-        <div><strong>Banco:</strong> ${company.conta.banco}</div>
-        <div><strong>Agência:</strong> ${company.conta.agencia}</div>
-        <div><strong>Conta:</strong> ${company.conta.conta}</div>
-        <div><strong>Tipo:</strong> ${company.conta.tipoConta}</div>
-      </div>
-    </section>
+  companyViewForm.elements.banco.value = company.conta.banco;
+  companyViewForm.elements.agencia.value = company.conta.agencia;
+  companyViewForm.elements.conta.value = company.conta.conta;
+  companyViewForm.elements.tipoConta.value = company.conta.tipoConta;
 
-    <section class="view-section">
-      <h3>Cliente e fornecedor</h3>
-      <div class="view-grid">
-        <div><strong>Cliente:</strong> ${company.cliente.nome}</div>
-        <div><strong>CPF/CNPJ do cliente:</strong> ${company.cliente.documento}</div>
-        <div><strong>Fornecedor:</strong> ${company.fornecedor.nome}</div>
-        <div><strong>CPF/CNPJ do fornecedor:</strong> ${company.fornecedor.documento}</div>
-      </div>
-    </section>
-  `;
+  companyViewForm.elements.clienteNome.value = company.cliente.nome;
+  companyViewForm.elements.clienteDocumento.value = company.cliente.documento;
+  companyViewForm.elements.fornecedorNome.value = company.fornecedor.nome;
+  companyViewForm.elements.fornecedorDocumento.value = company.fornecedor.documento;
 
+  setViewTab(0);
   companyViewModal.hidden = false;
 }
 
@@ -215,6 +210,38 @@ form.addEventListener("submit", (event) => {
   nextCompanyId += 1;
   closeCreateModal();
   renderCompanies();
+});
+
+companyViewForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const companyId = Number(viewCompanyIdInput.value);
+  const company = companies.find((item) => item.id === companyId);
+  if (!company) return;
+
+  company.nome = companyViewForm.elements.nome.value;
+  company.cnpj = companyViewForm.elements.cnpj.value;
+  company.responsavel = companyViewForm.elements.responsavel.value;
+  company.email = companyViewForm.elements.email.value;
+  company.telefone = companyViewForm.elements.telefone.value;
+  company.status = companyViewForm.elements.status.value;
+
+  company.conta.banco = companyViewForm.elements.banco.value;
+  company.conta.agencia = companyViewForm.elements.agencia.value;
+  company.conta.conta = companyViewForm.elements.conta.value;
+  company.conta.tipoConta = companyViewForm.elements.tipoConta.value;
+
+  company.cliente.nome = companyViewForm.elements.clienteNome.value;
+  company.cliente.documento = companyViewForm.elements.clienteDocumento.value;
+  company.fornecedor.nome = companyViewForm.elements.fornecedorNome.value;
+  company.fornecedor.documento = companyViewForm.elements.fornecedorDocumento.value;
+
+  renderCompanies();
+  closeDetailsModal();
+});
+
+viewTabButtons.forEach((button, idx) => {
+  button.addEventListener("click", () => setViewTab(idx));
 });
 
 searchInput.addEventListener("input", renderCompanies);

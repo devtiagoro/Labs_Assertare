@@ -271,3 +271,16 @@ legend {
     overflow-x: auto;
   }
 }
+
+
+#viewTabButtons {
+  margin-bottom: 10px;
+}
+
+#companyViewForm .tab-panel {
+  display: none;
+}
+
+#companyViewForm .tab-panel.active {
+  display: block;
+}
