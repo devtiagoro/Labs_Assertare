@@ -1,0 +1,300 @@
+:root {
+
+    --bg: #ffffff;
+    --card: #f5f7fb;
+    --text: #0b0d12;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+
+    --accent: #6ea8ff;
+    --accent2: #8fe1ff;
+
+}
+
+.dark {
+
+    --bg: #0b0d12;
+    --card: #111625;
+    --text: #e9edf7;
+    --muted: #b5bdd4;
+    --border: #1c2440;
+
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+    font-family: Inter, sans-serif;
+
+    background: var(--bg);
+    color: var(--text);
+
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    transition: background .3s, color .3s;
+
+}
+
+/* container */
+
+.container {
+
+    width: 100%;
+    max-width: 420px;
+
+}
+
+/* card login */
+
+.login-card {
+
+    background: var(--card);
+
+    padding: 28px;
+
+    border-radius: 18px;
+
+    border: 1px solid var(--border);
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .08);
+
+    text-align: center;
+
+    animation: fadeUp .5s ease;
+
+}
+
+/* animação */
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+/* logo */
+
+.logo {
+
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 16px;
+
+    border-radius: 12px;
+
+    background: linear-gradient(135deg, #6ea8ff, #8fe1ff);
+
+    color: #07101f;
+
+    font-weight: 700;
+
+    font-size: 22px;
+
+}
+
+h1 {
+
+    margin: 0;
+    font-size: 22px;
+
+}
+
+.subtitle {
+
+    color: var(--muted);
+    font-size: 14px;
+
+    margin-top: 6px;
+    margin-bottom: 26px;
+
+}
+
+/* form */
+
+form {
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 14px;
+
+}
+
+/* inputs */
+
+input {
+
+    width: 100%;
+
+    height: 48px;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    border: 1px solid var(--border);
+
+    background: transparent;
+
+    color: var(--text);
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition: .2s;
+
+}
+
+input:focus {
+
+    border-color: var(--accent);
+
+}
+
+/* campo senha */
+
+.password-field {
+
+    position: relative;
+    width: 100%;
+
+}
+
+.password-field input {
+
+    padding-right: 40px;
+
+}
+
+/* icone olho */
+
+.show-password {
+
+    position: absolute;
+
+    right: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    color: var(--muted);
+
+}
+
+/* esqueci senha */
+
+.forgot {
+
+    text-align: right;
+
+    font-size: 13px;
+
+    color: var(--muted);
+
+    text-decoration: none;
+
+}
+
+.forgot:hover {
+
+    text-decoration: underline;
+
+}
+
+/* botão */
+
+button {
+
+    height: 48px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: linear-gradient(135deg, #6ea8ff, #8fe1ff);
+
+    color: #07101f;
+
+    font-weight: 600;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+button:hover {
+
+    transform: translateY(-1px);
+
+}
+
+/* botão tema */
+
+.theme-btn {
+
+    position: fixed;
+
+    top: 15px;
+    right: 15px;
+
+    height: 36px;
+    width: 36px;
+
+    border-radius: 10px;
+
+    border: 1px solid var(--border);
+
+    background: var(--card);
+
+    cursor: pointer;
+
+}
+
+/* desktop */
+
+@media (min-width:768px) {
+
+    .login-card {
+
+        padding: 40px;
+
+    }
+
+    h1 {
+
+        font-size: 26px;
+
+    }
+
+}

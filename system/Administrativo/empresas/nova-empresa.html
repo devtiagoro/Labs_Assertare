@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nova Empresa</title>
+
+<link rel="stylesheet" href="../../assets/system.css">
+
+</head>
+
+<body>
+
+<header class="topbar">
+Nova empresa
+</header>
+
+<!-- ABAS -->
+
+<div class="tabs">
+
+<button class="tab active" onclick="abrirAba('resumo')">Resumo</button>
+<button class="tab" onclick="abrirAba('pessoas')">Pessoas</button>
+<button class="tab" onclick="abrirAba('contas')">Contas bancárias</button>
+<button class="tab" onclick="abrirAba('usuarios')">Usuários</button>
+
+</div>
+
+<main class="content">
+
+<!-- RESUMO -->
+
+<div id="resumo" class="aba">
+
+<form class="form">
+
+<input placeholder="Nome da empresa">
+<input placeholder="CNPJ">
+<input placeholder="Email">
+<input placeholder="Telefone">
+
+<button class="primary">
+Salvar empresa
+</button>
+
+</form>
+
+</div>
+
+<!-- PESSOAS -->
+
+<div id="pessoas" class="aba" style="display:none">
+
+<div class="section-header">
+
+<h3>Pessoas</h3>
+
+<button class="primary small" onclick="abrirModal('modalPessoa')">
++ Nova pessoa
+</button>
+
+</div>
+
+<div class="list">
+
+<div class="item">
+
+<span>Empresa ABC</span>
+<span>Cliente</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CONTAS BANCÁRIAS -->
+
+<div id="contas" class="aba" style="display:none">
+
+<div class="section-header">
+
+<h3>Contas bancárias</h3>
+
+<button class="primary small" onclick="abrirModal('modalConta')">
++ Nova conta
+</button>
+
+</div>
+
+<div class="list">
+
+<div class="item">
+
+<span>Itaú</span>
+<span>Conta corrente</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- USUÁRIOS -->
+
+<div id="usuarios" class="aba" style="display:none">
+
+<div class="section-header">
+
+<h3>Usuários</h3>
+
+<button class="primary small" onclick="abrirModal('modalUsuario')">
++ Novo usuário
+</button>
+
+</div>
+
+<div class="list">
+
+<div class="item">
+
+<span>Administrador</span>
+<span>Admin</span>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+
+<!-- MODAL PESSOA -->
+
+<div id="modalPessoa" class="modal">
+
+<div class="modal-content">
+
+<h2>Nova pessoa</h2>
+
+<form class="form">
+
+<input placeholder="Nome ou empresa">
+<input placeholder="CPF ou CNPJ">
+<input placeholder="Email">
+<input placeholder="Telefone">
+
+<select>
+<option>Tipo</option>
+<option>Cliente</option>
+<option>Fornecedor</option>
+<option>Ambos</option>
+</select>
+
+<button class="primary">Salvar</button>
+
+<button type="button" onclick="fecharModal('modalPessoa')" class="secondary">
+Cancelar
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+
+<!-- MODAL CONTA -->
+
+<div id="modalConta" class="modal">
+
+<div class="modal-content">
+
+<h2>Conta bancária</h2>
+
+<form class="form">
+
+<input placeholder="Banco">
+<input placeholder="Agência">
+<input placeholder="Conta">
+
+<select>
+<option>Tipo</option>
+<option>Conta corrente</option>
+<option>Poupança</option>
+</select>
+
+<button class="primary">Salvar</button>
+
+<button type="button" onclick="fecharModal('modalConta')" class="secondary">
+Cancelar
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+
+<!-- MODAL USUARIO -->
+
+<div id="modalUsuario" class="modal">
+
+<div class="modal-content">
+
+<h2>Novo usuário</h2>
+
+<form class="form">
+
+<input placeholder="Nome">
+<input placeholder="Email">
+
+<select>
+<option>Permissão</option>
+<option>Administrador</option>
+<option>Financeiro</option>
+<option>Visualização</option>
+</select>
+
+<button class="primary">Salvar</button>
+
+<button type="button" onclick="fecharModal('modalUsuario')" class="secondary">
+Cancelar
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+
+<script src="../../assets/system.js"></script>
+
+</body>
+</html>

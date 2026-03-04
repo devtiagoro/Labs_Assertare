@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Assertare</title>
+    <link rel="stylesheet" href="login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <button id="themeToggle" class="theme-btn">🌙</button>
+    <div class="container">
+        <div class="login-card">
+            <div class="logo">
+                A
+            </div>
+            <h1>Assertare</h1>
+            <p class="subtitle">
+                Sistema de BPO Financeiro
+            </p>
+            <form id="loginForm">
+                <input type="email" placeholder="Email" required>
+                <div class="password-field">
+                    <input id="password" type="password" placeholder="Senha" required>
+                    <span id="togglePassword" class="show-password">👁</span>
+                </div>
+                <a href="recover.html" class="forgot">
+                    Esqueci minha senha
+                </a>
+                <button id="loginButton" type="submit">
+                    Entrar
+                </button>
+            </form>
+        </div>
+    </div>
+    <script src="login.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>
