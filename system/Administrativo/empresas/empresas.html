@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Empresas | Sistema Assertare</title>
+  <link rel="stylesheet" href="/assets/system.css">
+  <link rel="stylesheet" href="/system/Administrativo/empresas/empresas.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <nav class="sidebar-menu">
+        <a href="#">Dashboard</a>
+        <div class="menu-group">
+          <span>Administrativo</span>
+          <a href="/system/Administrativo/usuarios/usuarios.html">Usuários</a>
+          <a href="/system/Administrativo/empresas/empresas.html" class="active-link">Empresas</a>
+        </div>
+      </nav>
+    </aside>
+
+    <div class="main" id="main">
+      <header class="header">
+        <div class="header-left">
+          <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+          <div class="brand">
+            <img src="/assets/logo.png" class="logo" alt="Logo Assertare">
+            <span class="brand-name">Assertare</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="content companies-page">
+        <section class="page-head">
+          <div>
+            <h1>Empresas</h1>
+            <p>Gerencie empresas, contas bancárias, plano de contas e pessoas vinculadas.</p>
+          </div>
+          <button type="button" id="openCompanyModal" class="btn primary">+ Nova empresa</button>
+        </section>
+
+        <section class="filters-card">
+          <label class="filter-field">Buscar
+            <input type="search" id="searchCompany" placeholder="Nome, CNPJ, responsável ou pessoa vinculada">
+          </label>
+          <label class="filter-field">Status
+            <select id="statusFilter">
+              <option value="todos">Todos</option>
+              <option value="ativa">Ativa</option>
+              <option value="implantacao">Implantação</option>
+              <option value="inativa">Inativa</option>
+            </select>
+          </label>
+        </section>
+
+        <section class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Empresa</th>
+                <th>CNPJ</th>
+                <th>Pessoa vinculada</th>
+                <th>Status</th>
+                <th>Último fechamento</th>
+                <th class="col-actions">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="companiesTableBody"></tbody>
+          </table>
+          <p class="empty-state" id="emptyState" hidden>Nenhuma empresa encontrada com os filtros selecionados.</p>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div id="companyModal" class="modal" hidden>
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h2 id="modalTitle">Nova empresa</h2>
+        <button type="button" class="close-modal" id="closeCompanyModal">×</button>
+      </div>
+
+      <div class="tab-buttons">
+        <button type="button" class="tab-btn active" data-tab="cadastral">Informações cadastrais</button>
+        <button type="button" class="tab-btn" data-tab="plano">Plano de Contas</button>
+        <button type="button" class="tab-btn" data-tab="contas">Contas bancárias</button>
+        <button type="button" class="tab-btn" data-tab="pessoas">Pessoas</button>
+      </div>
+
+      <form id="companyForm">
+        <div class="tab-panel active" data-panel="cadastral">
+          <div class="form-grid">
+            <label>Nome da empresa<input name="nome" required></label>
+            <label>CNPJ<input name="cnpj" required></label>
+            <label>Responsável<input name="responsavel" required></label>
+            <label>Email<input type="email" name="email" required></label>
+            <label>Telefone<input name="telefone" required></label>
+            <label>Status
+              <select name="status" required>
+                <option value="ativa">Ativa</option>
+                <option value="implantacao">Implantação</option>
+                <option value="inativa">Inativa</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-panel="plano">
+          <div class="entry-card">
+            <div class="entry-grid people-grid">
+              <label>Nome da conta<input id="createPlanName"></label>
+              <label>Estrutura
+                <select id="createPlanGroup">
+                  <option value="dre">DRE</option>
+                  <option value="fluxoCaixa">Fluxo de Caixa</option>
+                </select>
+              </label>
+              <label>Nível
+                <select id="createPlanLevel">
+                  <option value="filho">Filho</option>
+                  <option value="neto">Neto</option>
+                </select>
+              </label>
+              <label id="createPlanParentWrap">Conta pai (filho)
+                <select id="createPlanParent"></select>
+              </label>
+            </div>
+            <button type="button" id="addCreatePlan" class="btn secondary">+ Adicionar plano</button>
+          </div>
+          <div id="createPlanTree" class="plan-boxes"></div>
+        </div>
+
+        <div class="tab-panel" data-panel="contas">
+          <div class="entry-card">
+            <div class="entry-grid">
+              <label>Banco<input id="createBankName"></label>
+              <label>Agência<input id="createBankAgency"></label>
+              <label>Conta<input id="createBankAccount"></label>
+              <label>Tipo
+                <select id="createBankType">
+                  <option value="Conta corrente">Conta corrente</option>
+                  <option value="Poupança">Poupança</option>
+                </select>
+              </label>
+            </div>
+            <button type="button" id="addCreateBank" class="btn secondary">+ Adicionar conta bancária</button>
+          </div>
+          <div id="createBankList" class="entry-list"></div>
+        </div>
+
+        <div class="tab-panel" data-panel="pessoas">
+          <div class="entry-card">
+            <div class="entry-grid people-grid">
+              <label>Nome<input id="createPersonName"></label>
+              <label>CPF/CNPJ<input id="createPersonDocument"></label>
+              <label>Plano de contas
+                <select id="createPersonAccountPlan">
+                  <option value="Clientes">Clientes</option>
+                  <option value="Fornecedores">Fornecedores</option>
+                  <option value="Colaboradores">Colaboradores</option>
+                  <option value="Outros">Outros</option>
+                </select>
+              </label>
+            </div>
+            <button type="button" id="addCreatePerson" class="btn secondary">+ Adicionar pessoa</button>
+          </div>
+          <div id="createPeopleList" class="entry-list"></div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn secondary" id="previousTab">Anterior</button>
+          <button type="button" class="btn secondary" id="nextTab">Próxima</button>
+          <button type="submit" class="btn primary">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="companyViewModal" class="modal" hidden>
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="viewModalTitle">
+      <div class="modal-header">
+        <h2 id="viewModalTitle">Informações completas da empresa</h2>
+        <button type="button" class="close-modal" id="closeViewModal">×</button>
+      </div>
+
+      <div class="tab-buttons" id="viewTabButtons">
+        <button type="button" class="tab-btn active" data-view-tab="cadastral">Informações cadastrais</button>
+        <button type="button" class="tab-btn" data-view-tab="plano">Plano de Contas</button>
+        <button type="button" class="tab-btn" data-view-tab="contas">Contas bancárias</button>
+        <button type="button" class="tab-btn" data-view-tab="pessoas">Pessoas</button>
+      </div>
+
+      <form id="companyViewForm" class="company-view-content">
+        <input type="hidden" name="companyId" id="viewCompanyId">
+
+        <div class="tab-panel active" data-view-panel="cadastral">
+          <div class="form-grid">
+            <label>Nome da empresa<input name="nome" required></label>
+            <label>CNPJ<input name="cnpj" required></label>
+            <label>Responsável<input name="responsavel" required></label>
+            <label>Email<input type="email" name="email" required></label>
+            <label>Telefone<input name="telefone" required></label>
+            <label>Status
+              <select name="status" required>
+                <option value="ativa">Ativa</option>
+                <option value="implantacao">Implantação</option>
+                <option value="inativa">Inativa</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-view-panel="plano">
+          <div class="entry-card">
+            <div class="entry-grid people-grid">
+              <label>Nome da conta<input id="editPlanName"></label>
+              <label>Estrutura
+                <select id="editPlanGroup">
+                  <option value="dre">DRE</option>
+                  <option value="fluxoCaixa">Fluxo de Caixa</option>
+                </select>
+              </label>
+              <label>Nível
+                <select id="editPlanLevel">
+                  <option value="filho">Filho</option>
+                  <option value="neto">Neto</option>
+                </select>
+              </label>
+              <label id="editPlanParentWrap">Conta pai (filho)
+                <select id="editPlanParent"></select>
+              </label>
+            </div>
+            <button type="button" id="addEditPlan" class="btn secondary">+ Adicionar plano</button>
+          </div>
+          <div id="editPlanTree" class="plan-boxes"></div>
+        </div>
+
+        <div class="tab-panel" data-view-panel="contas">
+          <div class="entry-card">
+            <div class="entry-grid">
+              <label>Banco<input id="editBankName"></label>
+              <label>Agência<input id="editBankAgency"></label>
+              <label>Conta<input id="editBankAccount"></label>
+              <label>Tipo
+                <select id="editBankType">
+                  <option value="Conta corrente">Conta corrente</option>
+                  <option value="Poupança">Poupança</option>
+                </select>
+              </label>
+            </div>
+            <button type="button" id="addEditBank" class="btn secondary">+ Adicionar conta bancária</button>
+          </div>
+          <div id="editBankList" class="entry-list"></div>
+        </div>
+
+        <div class="tab-panel" data-view-panel="pessoas">
+          <div class="entry-card">
+            <div class="entry-grid people-grid">
+              <label>Nome<input id="editPersonName"></label>
+              <label>CPF/CNPJ<input id="editPersonDocument"></label>
+              <label>Plano de contas
+                <select id="editPersonAccountPlan">
+                  <option value="Clientes">Clientes</option>
+                  <option value="Fornecedores">Fornecedores</option>
+                  <option value="Colaboradores">Colaboradores</option>
+                  <option value="Outros">Outros</option>
+                </select>
+              </label>
+            </div>
+            <button type="button" id="addEditPerson" class="btn secondary">+ Adicionar pessoa</button>
+          </div>
+          <div id="editPeopleList" class="entry-list"></div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn secondary" id="closeViewModalBottom">Fechar</button>
+          <button type="submit" class="btn primary">Salvar alterações</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/assets/system.js"></script>
+  <script src="/system/Administrativo/empresas/empresas.js"></script>
+</body>
+</html>
