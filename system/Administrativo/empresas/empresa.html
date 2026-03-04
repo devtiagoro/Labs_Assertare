@@ -1,151 +1,103 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Sistema Assertare</title>
-
-<link rel="stylesheet" href="/assets/system.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Empresas | BPO Assertare</title>
+  <link rel="stylesheet" href="/assets/system.css">
+  <link rel="stylesheet" href="/system/Administrativo/empresas/empresas.css">
 </head>
-
 <body>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <nav class="sidebar-menu">
+        <a href="#">Dashboard</a>
 
-<div class="layout">
+        <div class="menu-group">
+          <span>Administrativo</span>
+          <a href="/system/Administrativo/usuarios/usuarios.html">Usuários</a>
+          <a href="/system/Administrativo/empresas/empresas.html" class="active-link">Empresas</a>
+        </div>
 
-<!-- SIDEBAR -->
+        <div class="menu-group">
+          <span>Financeiro</span>
+          <a href="#">Contas a pagar</a>
+          <a href="#">Contas a receber</a>
+          <a href="#">Extratos</a>
+        </div>
+      </nav>
+    </aside>
 
-<aside class="sidebar" id="sidebar">
+    <div class="main" id="main">
+      <header class="header">
+        <div class="header-left">
+          <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+          <div class="brand">
+            <img src="/assets/logo.png" class="logo" alt="Logo Assertare">
+            <span class="brand-name">Assertare</span>
+          </div>
+        </div>
 
-<nav class="sidebar-menu">
+        <div class="header-right">
+          <div class="user-area">
+            <div class="user-icon">👤</div>
+            <div class="user-info">
+              <span class="user-name">João Silva</span>
+              <span class="user-role">Administrador</span>
+            </div>
+          </div>
+        </div>
+      </header>
 
-<a href="#">Dashboard</a>
+      <main class="content companies-page">
+        <section class="page-head">
+          <div>
+            <h1>Empresas</h1>
+            <p>Gerencie empresas clientes do BPO Financeiro.</p>
+          </div>
+          <a href="/system/Administrativo/empresas/nova-empresa.html" class="btn primary">+ Nova empresa</a>
+        </section>
 
-<div class="menu-group">
+        <section class="filters-card">
+          <label class="filter-field">
+            Buscar
+            <input type="search" id="searchCompany" placeholder="Nome, CNPJ ou responsável">
+          </label>
 
-<span>Administrativo</span>
+          <label class="filter-field">
+            Status
+            <select id="statusFilter">
+              <option value="todos">Todos</option>
+              <option value="ativa">Ativa</option>
+              <option value="implantacao">Implantação</option>
+              <option value="inativa">Inativa</option>
+            </select>
+          </label>
+        </section>
 
-<a href="#">Usuários</a>
-<a href="#">Empresas</a>
+        <section class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Empresa</th>
+                <th>CNPJ</th>
+                <th>Responsável</th>
+                <th>Status</th>
+                <th>Último fechamento</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="companiesTableBody"></tbody>
+          </table>
+          <p class="empty-state" id="emptyState" hidden>Nenhuma empresa encontrada com os filtros selecionados.</p>
+        </section>
+      </main>
 
-</div>
+      <footer class="footer">Developed by Assertare</footer>
+    </div>
+  </div>
 
-<div class="menu-group">
-
-<span>Financeiro</span>
-
-<a href="#">Contas a pagar</a>
-<a href="#">Contas a receber</a>
-<a href="#">Extratos</a>
-
-</div>
-
-<div class="menu-group">
-
-<span>Relatórios</span>
-
-<a href="#">Visão geral</a>
-<a href="#">DRE</a>
-<a href="#">Fluxo de caixa</a>
-
-</div>
-
-<div class="menu-group">
-
-<span>Importação</span>
-
-<a href="#">Importar extrato</a>
-<a href="#">Conciliação bancária</a>
-
-</div>
-
-</nav>
-
-</aside>
-
-
-
-<!-- AREA PRINCIPAL -->
-
-<div class="main" id="main">
-
-
-<!-- HEADER -->
-
-<header class="header">
-
-<div class="header-left">
-
-<div class="menu-icon" onclick="toggleSidebar()">
-☰
-</div>
-
-<div class="brand">
-
-<img src="/assets/logo.png" class="logo">
-
-<span class="brand-name">
-Assertare
-</span>
-
-</div>
-
-</div>
-
-
-<div class="header-right">
-
-<div class="user-area">
-
-<div class="user-icon">
-👤
-</div>
-
-<div class="user-info">
-
-<span class="user-name">
-João Silva
-</span>
-
-<span class="user-role">
-Administrador
-</span>
-
-</div>
-
-</div>
-
-</div>
-
-</header>
-
-
-<!-- CONTEÚDO -->
-
-<main class="content">
-
-<h1>Página do sistema</h1>
-
-</main>
-
-
-<!-- FOOTER -->
-
-<footer class="footer">
-
-Developed by Assertare
-
-</footer>
-
-</div>
-
-</div>
-
-
-<script src="/assets/system/system.js"></script>
-
+  <script src="/assets/system.js"></script>
+  <script src="/system/Administrativo/empresas/empresas.js"></script>
 </body>
 </html>
