@@ -12,18 +12,10 @@
     <aside class="sidebar" id="sidebar">
       <nav class="sidebar-menu">
         <a href="#">Dashboard</a>
-
         <div class="menu-group">
           <span>Administrativo</span>
           <a href="/system/Administrativo/usuarios/usuarios.html">Usuários</a>
           <a href="/system/Administrativo/empresas/empresas.html" class="active-link">Empresas</a>
-        </div>
-
-        <div class="menu-group">
-          <span>Financeiro</span>
-          <a href="#">Contas a pagar</a>
-          <a href="#">Contas a receber</a>
-          <a href="#">Extratos</a>
         </div>
       </nav>
     </aside>
@@ -37,35 +29,22 @@
             <span class="brand-name">Assertare</span>
           </div>
         </div>
-
-        <div class="header-right">
-          <div class="user-area">
-            <div class="user-icon">👤</div>
-            <div class="user-info">
-              <span class="user-name">João Silva</span>
-              <span class="user-role">Administrador</span>
-            </div>
-          </div>
-        </div>
       </header>
 
       <main class="content companies-page">
         <section class="page-head">
           <div>
             <h1>Empresas</h1>
-            <p>Gerenciar empresas cadastradas no sistema.</p>
+            <p>Gerencie empresas, contas bancárias, plano de contas e pessoas vinculadas.</p>
           </div>
           <button type="button" id="openCompanyModal" class="btn primary">+ Nova empresa</button>
         </section>
 
         <section class="filters-card">
-          <label class="filter-field">
-            Buscar
-            <input type="search" id="searchCompany" placeholder="Nome, CNPJ, cliente ou responsável">
+          <label class="filter-field">Buscar
+            <input type="search" id="searchCompany" placeholder="Nome, CNPJ, responsável ou pessoa vinculada">
           </label>
-
-          <label class="filter-field">
-            Status
+          <label class="filter-field">Status
             <select id="statusFilter">
               <option value="todos">Todos</option>
               <option value="ativa">Ativa</option>
@@ -81,7 +60,7 @@
               <tr>
                 <th>Empresa</th>
                 <th>CNPJ</th>
-                <th>Cliente (CPF/CNPJ)</th>
+                <th>Pessoa vinculada</th>
                 <th>Status</th>
                 <th>Último fechamento</th>
                 <th class="col-actions">Ações</th>
@@ -92,8 +71,6 @@
           <p class="empty-state" id="emptyState" hidden>Nenhuma empresa encontrada com os filtros selecionados.</p>
         </section>
       </main>
-
-      <footer class="footer">Developed by Assertare</footer>
     </div>
   </div>
 
@@ -106,8 +83,9 @@
 
       <div class="tab-buttons">
         <button type="button" class="tab-btn active" data-tab="cadastral">Informações cadastrais</button>
-        <button type="button" class="tab-btn" data-tab="conta">Conta bancária</button>
-        <button type="button" class="tab-btn" data-tab="pessoas">Cliente e fornecedores</button>
+        <button type="button" class="tab-btn" data-tab="plano">Plano de Contas</button>
+        <button type="button" class="tab-btn" data-tab="contas">Contas bancárias</button>
+        <button type="button" class="tab-btn" data-tab="pessoas">Pessoas</button>
       </div>
 
       <form id="companyForm">
@@ -128,34 +106,70 @@
           </div>
         </div>
 
-        <div class="tab-panel" data-panel="conta">
-          <div class="form-grid">
-            <label>Banco<input name="banco" required></label>
-            <label>Agência<input name="agencia" required></label>
-            <label>Conta<input name="conta" required></label>
-            <label>Tipo da conta
-              <select name="tipoConta" required>
-                <option value="Conta corrente">Conta corrente</option>
-                <option value="Poupança">Poupança</option>
-              </select>
-            </label>
+        <div class="tab-panel" data-panel="plano">
+          <div class="entry-card">
+            <div class="entry-grid people-grid">
+              <label>Nome da conta<input id="createPlanName"></label>
+              <label>Estrutura
+                <select id="createPlanGroup">
+                  <option value="dre">DRE</option>
+                  <option value="fluxoCaixa">Fluxo de Caixa</option>
+                </select>
+              </label>
+              <label>Nível
+                <select id="createPlanLevel">
+                  <option value="pai">Pai</option>
+                  <option value="filho">Filho</option>
+                  <option value="neto">Neto</option>
+                </select>
+              </label>
+              <label id="createPlanParentWrap">Conta Pai
+                <select id="createPlanParent"></select>
+              </label>
+              <label id="createPlanChildWrap">Conta Filho
+                <select id="createPlanChild"></select>
+              </label>
+            </div>
+            <button type="button" id="addCreatePlan" class="btn secondary">+ Adicionar plano</button>
           </div>
+          <div id="createPlanTree" class="plan-boxes"></div>
+        </div>
+
+        <div class="tab-panel" data-panel="contas">
+          <div class="entry-card">
+            <div class="entry-grid">
+              <label>Banco<input id="createBankName"></label>
+              <label>Agência<input id="createBankAgency"></label>
+              <label>Conta<input id="createBankAccount"></label>
+              <label>Tipo
+                <select id="createBankType">
+                  <option value="Conta corrente">Conta corrente</option>
+                  <option value="Poupança">Poupança</option>
+                </select>
+              </label>
+            </div>
+            <button type="button" id="addCreateBank" class="btn secondary">+ Adicionar conta bancária</button>
+          </div>
+          <div id="createBankList" class="entry-list"></div>
         </div>
 
         <div class="tab-panel" data-panel="pessoas">
-          <div class="form-grid two-columns">
-            <fieldset>
-              <legend>Cliente</legend>
-              <label>Nome do cliente<input name="clienteNome" required></label>
-              <label>CPF/CNPJ do cliente<input name="clienteDocumento" required></label>
-            </fieldset>
-
-            <fieldset>
-              <legend>Fornecedor</legend>
-              <label>Nome do fornecedor<input name="fornecedorNome" required></label>
-              <label>CPF/CNPJ do fornecedor<input name="fornecedorDocumento" required></label>
-            </fieldset>
+          <div class="entry-card">
+            <div class="entry-grid people-grid">
+              <label>Nome<input id="createPersonName"></label>
+              <label>CPF/CNPJ<input id="createPersonDocument"></label>
+              <label>Plano de contas
+                <select id="createPersonAccountPlan">
+                  <option value="Clientes">Clientes</option>
+                  <option value="Fornecedores">Fornecedores</option>
+                  <option value="Colaboradores">Colaboradores</option>
+                  <option value="Outros">Outros</option>
+                </select>
+              </label>
+            </div>
+            <button type="button" id="addCreatePerson" class="btn secondary">+ Adicionar pessoa</button>
           </div>
+          <div id="createPeopleList" class="entry-list"></div>
         </div>
 
         <div class="modal-actions">
@@ -176,8 +190,9 @@
 
       <div class="tab-buttons" id="viewTabButtons">
         <button type="button" class="tab-btn active" data-view-tab="cadastral">Informações cadastrais</button>
-        <button type="button" class="tab-btn" data-view-tab="conta">Conta bancária</button>
-        <button type="button" class="tab-btn" data-view-tab="pessoas">Cliente e fornecedores</button>
+        <button type="button" class="tab-btn" data-view-tab="plano">Plano de Contas</button>
+        <button type="button" class="tab-btn" data-view-tab="contas">Contas bancárias</button>
+        <button type="button" class="tab-btn" data-view-tab="pessoas">Pessoas</button>
       </div>
 
       <form id="companyViewForm" class="company-view-content">
@@ -200,34 +215,70 @@
           </div>
         </div>
 
-        <div class="tab-panel" data-view-panel="conta">
-          <div class="form-grid">
-            <label>Banco<input name="banco" required></label>
-            <label>Agência<input name="agencia" required></label>
-            <label>Conta<input name="conta" required></label>
-            <label>Tipo da conta
-              <select name="tipoConta" required>
-                <option value="Conta corrente">Conta corrente</option>
-                <option value="Poupança">Poupança</option>
-              </select>
-            </label>
+        <div class="tab-panel" data-view-panel="plano">
+          <div class="entry-card">
+            <div class="entry-grid people-grid">
+              <label>Nome da conta<input id="editPlanName"></label>
+              <label>Estrutura
+                <select id="editPlanGroup">
+                  <option value="dre">DRE</option>
+                  <option value="fluxoCaixa">Fluxo de Caixa</option>
+                </select>
+              </label>
+              <label>Nível
+                <select id="editPlanLevel">
+                  <option value="pai">Pai</option>
+                  <option value="filho">Filho</option>
+                  <option value="neto">Neto</option>
+                </select>
+              </label>
+              <label id="editPlanParentWrap">Conta Pai
+                <select id="editPlanParent"></select>
+              </label>
+              <label id="editPlanChildWrap">Conta Filho
+                <select id="editPlanChild"></select>
+              </label>
+            </div>
+            <button type="button" id="addEditPlan" class="btn secondary">+ Adicionar plano</button>
           </div>
+          <div id="editPlanTree" class="plan-boxes"></div>
+        </div>
+
+        <div class="tab-panel" data-view-panel="contas">
+          <div class="entry-card">
+            <div class="entry-grid">
+              <label>Banco<input id="editBankName"></label>
+              <label>Agência<input id="editBankAgency"></label>
+              <label>Conta<input id="editBankAccount"></label>
+              <label>Tipo
+                <select id="editBankType">
+                  <option value="Conta corrente">Conta corrente</option>
+                  <option value="Poupança">Poupança</option>
+                </select>
+              </label>
+            </div>
+            <button type="button" id="addEditBank" class="btn secondary">+ Adicionar conta bancária</button>
+          </div>
+          <div id="editBankList" class="entry-list"></div>
         </div>
 
         <div class="tab-panel" data-view-panel="pessoas">
-          <div class="form-grid two-columns">
-            <fieldset>
-              <legend>Cliente</legend>
-              <label>Nome do cliente<input name="clienteNome" required></label>
-              <label>CPF/CNPJ do cliente<input name="clienteDocumento" required></label>
-            </fieldset>
-
-            <fieldset>
-              <legend>Fornecedor</legend>
-              <label>Nome do fornecedor<input name="fornecedorNome" required></label>
-              <label>CPF/CNPJ do fornecedor<input name="fornecedorDocumento" required></label>
-            </fieldset>
+          <div class="entry-card">
+            <div class="entry-grid people-grid">
+              <label>Nome<input id="editPersonName"></label>
+              <label>CPF/CNPJ<input id="editPersonDocument"></label>
+              <label>Plano de contas
+                <select id="editPersonAccountPlan">
+                  <option value="Clientes">Clientes</option>
+                  <option value="Fornecedores">Fornecedores</option>
+                  <option value="Colaboradores">Colaboradores</option>
+                  <option value="Outros">Outros</option>
+                </select>
+              </label>
+            </div>
+            <button type="button" id="addEditPerson" class="btn secondary">+ Adicionar pessoa</button>
           </div>
+          <div id="editPeopleList" class="entry-list"></div>
         </div>
 
         <div class="modal-actions">

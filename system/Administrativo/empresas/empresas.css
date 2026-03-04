@@ -1,34 +1,36 @@
 .companies-page {
-  padding: 24px;
+  padding: 12px;
   display: grid;
-  gap: 18px;
+  gap: 12px;
 }
 
 .page-head {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
 }
 
 .page-head h1 {
   margin: 0;
-  font-size: 28px;
+  font-size: 22px;
 }
 
 .page-head p {
-  margin: 6px 0 0;
+  margin: 4px 0 0;
   color: #6b7280;
+  font-size: 14px;
 }
 
 .btn {
   text-decoration: none;
   border: 0;
   border-radius: 8px;
-  padding: 10px 16px;
+  padding: 10px 14px;
   font-weight: 600;
   display: inline-block;
   cursor: pointer;
+  font-size: 14px;
 }
 
 .primary {
@@ -46,13 +48,13 @@
   background: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
-  padding: 16px;
+  padding: 12px;
 }
 
 .filters-card {
   display: grid;
-  grid-template-columns: 1fr 220px;
-  gap: 12px;
+  grid-template-columns: 1fr;
+  gap: 10px;
 }
 
 .filter-field {
@@ -65,25 +67,37 @@
 .filter-field input,
 .filter-field select,
 .form-grid input,
-.form-grid select {
+.form-grid select,
+.entry-grid input,
+.entry-grid select {
   border: 1px solid #d1d5db;
   border-radius: 8px;
   padding: 10px;
   font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
+  display: block;
+  overflow-x: auto;
+}
+
+thead,
+tbody {
+  width: 100%;
 }
 
 th,
 td {
   text-align: left;
-  padding: 12px;
+  padding: 10px;
   border-bottom: 1px solid #f1f5f9;
-  font-size: 14px;
+  font-size: 13px;
   vertical-align: top;
+  white-space: nowrap;
 }
 
 th {
@@ -91,18 +105,15 @@ th {
   font-weight: 600;
 }
 
-.col-actions {
-  text-align: right;
-}
-
+.col-actions,
 .cell-actions {
   text-align: right;
 }
 
 .badge {
   border-radius: 999px;
-  padding: 4px 10px;
-  font-size: 12px;
+  padding: 4px 8px;
+  font-size: 11px;
   font-weight: 600;
 }
 
@@ -127,8 +138,9 @@ th {
 }
 
 .empty-state {
-  margin: 12px 0 0;
+  margin: 10px 0 0;
   color: #6b7280;
+  font-size: 13px;
 }
 
 .modal[hidden] {
@@ -141,48 +153,59 @@ th {
   background: rgba(15, 23, 42, 0.45);
   display: grid;
   place-items: center;
-  padding: 20px;
+  padding: 6px;
   z-index: 1000;
 }
 
 .modal-content {
-  width: min(860px, 100%);
-  max-height: 90vh;
+  width: 100%;
+  height: 100%;
   overflow: auto;
   background: #fff;
-  border-radius: 12px;
+  border-radius: 10px;
   border: 1px solid #e5e7eb;
-  padding: 18px;
+  padding: 12px;
+  box-sizing: border-box;
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 8px;
 }
 
 .close-modal {
   border: 0;
   background: transparent;
-  font-size: 30px;
+  font-size: 28px;
   line-height: 1;
   cursor: pointer;
 }
 
 .tab-buttons {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 8px;
-  margin: 14px 0;
+  margin: 12px 0;
+  width: 100%;
 }
+
 
 .tab-btn {
   border: 1px solid #d1d5db;
   border-radius: 8px;
-  padding: 8px 12px;
+  padding: 10px 12px;
   background: #fff;
   cursor: pointer;
+  font-size: 13px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
+
 
 .tab-btn.active {
   background: #eff6ff;
@@ -198,14 +221,18 @@ th {
   display: block;
 }
 
-.form-grid {
+.form-grid,
+.entry-grid,
+.entry-grid.two-columns,
+.people-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(220px, 1fr));
-  gap: 12px;
+  grid-template-columns: 1fr;
+  gap: 10px;
 }
 
 .form-grid label,
-fieldset {
+fieldset,
+.entry-grid label {
   display: grid;
   gap: 6px;
   font-size: 13px;
@@ -226,6 +253,7 @@ legend {
 .modal-actions {
   margin-top: 14px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
   gap: 8px;
 }
@@ -235,43 +263,44 @@ legend {
   gap: 12px;
 }
 
-.view-section {
+.entry-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px;
+  display: grid;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.entry-list {
+  display: grid;
+  gap: 8px;
+}
+
+.entry-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
-  padding: 12px;
-  display: grid;
-  gap: 6px;
+  padding: 10px;
+  font-size: 13px;
 }
 
-.view-section h3 {
-  margin: 0;
-  font-size: 15px;
+.entry-empty {
+  color: #6b7280;
+  font-size: 13px;
 }
 
-.view-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 8px;
-  font-size: 14px;
+.entry-remove {
+  border: 0;
+  background: #fee2e2;
+  color: #991b1b;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
 }
-
-@media (max-width: 900px) {
-  .filters-card,
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .page-head {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  table {
-    display: block;
-    overflow-x: auto;
-  }
-}
-
 
 #viewTabButtons {
   margin-bottom: 10px;
@@ -283,4 +312,197 @@ legend {
 
 #companyViewForm .tab-panel.active {
   display: block;
+}
+
+.plan-boxes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.plan-structure-box {
+  border: 1px solid #dbe2ea;
+  border-radius: 10px;
+  padding: 10px;
+  background: #f8fafc;
+}
+
+.plan-structure-box h4 {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+.plan-parents {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.plan-node {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px;
+  background: #fff;
+}
+
+.plan-node.level-pai {
+  background: #f8fafc;
+  border-color: #93c5fd;
+}
+
+.plan-node.level-filho {
+  background: #ffffff;
+  border-color: #cbd5e1;
+}
+
+.plan-node.level-neto {
+  background: #f9fafb;
+  border-color: #e2e8f0;
+}
+
+.plan-line {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.plan-label {
+  font-size: 13px;
+}
+
+.plan-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.plan-actions button {
+  border: 0;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.plan-add { background: #dcfce7; color: #166534; }
+.plan-edit { background: #dbeafe; color: #1d4ed8; }
+.plan-delete { background: #fee2e2; color: #991b1b; }
+
+.plan-children {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.plan-grandchildren {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+@media (min-width: 768px) {
+  .companies-page {
+    padding: 18px;
+    gap: 16px;
+  }
+
+  .page-head h1 {
+    font-size: 26px;
+  }
+
+  .filters-card {
+    grid-template-columns: 1fr 220px;
+  }
+
+  .tab-buttons {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    align-items: stretch;
+  }
+
+  .form-grid,
+  .entry-grid,
+  .people-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+
+  .entry-grid.two-columns {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+
+  .entry-item {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal {
+    padding: 12px;
+  }
+
+  .modal-content {
+    width: 95vw;
+    height: 92vh;
+    padding: 16px;
+  }
+
+  .plan-line {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .companies-page {
+    padding: 24px;
+    gap: 18px;
+  }
+
+  .page-head {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .page-head h1 {
+    font-size: 28px;
+  }
+
+  .form-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+
+  .entry-grid {
+    grid-template-columns: repeat(4, minmax(160px, 1fr));
+  }
+
+  .people-grid {
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+  }
+
+  .plan-boxes {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .modal-content {
+    width: 90vw;
+    height: 90vh;
+    padding: 18px;
+  }
+
+  table {
+    display: table;
+    overflow-x: visible;
+  }
+
+  th,
+  td {
+    white-space: normal;
+    font-size: 14px;
+    padding: 12px;
+  }
 }
