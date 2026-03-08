@@ -55,7 +55,7 @@
             password.type = isPassword ? "text" : "password"
         }
 
-        togglePassword.textContent = isPassword ? "🙈" : "👁"
+        togglePassword.textContent = isPassword ? "👀" : "👁️"
         togglePassword.setAttribute("aria-label", isPassword ? "Ocultar senha" : "Mostrar senha")
     })
 
