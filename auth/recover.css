@@ -119,7 +119,7 @@ body {
     background: rgba(255, 255, 255, 0.18);
 }
 
-.login-card {
+.recover-card {
     background: var(--card);
     padding: 44px 38px;
 }
@@ -135,7 +135,13 @@ body {
     border: 1px solid var(--border);
 }
 
-.login-card h2 {
+.logo img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+.recover-card h2 {
     margin: 0;
     font-size: 28px;
 }
@@ -178,28 +184,7 @@ input:focus {
     box-shadow: 0 0 0 3px rgba(73, 124, 255, 0.15);
 }
 
-.password-field {
-    position: relative;
-}
-
-.password-field input {
-    padding-right: 42px;
-}
-
-.show-password {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    border: 0;
-    background: transparent;
-    font-size: 16px;
-    cursor: pointer;
-    color: var(--muted);
-}
-
-
-.auth-message {
+.recover-message {
     min-height: 20px;
     margin: 0;
     font-size: 13px;
@@ -208,24 +193,12 @@ input:focus {
     color: var(--muted);
 }
 
-.auth-message.is-error {
+.recover-message.is-error {
     color: #d92d20;
 }
 
-.auth-message.is-success {
+.recover-message.is-success {
     color: #079455;
-}
-
-.forgot {
-    font-size: 13px;
-    margin: 2px 0 8px;
-    color: var(--muted);
-    text-decoration: none;
-    align-self: flex-end;
-}
-
-.forgot:hover {
-    color: var(--accent);
 }
 
 .primary-btn {
@@ -246,6 +219,24 @@ input:focus {
     filter: brightness(1.05);
 }
 
+.link-btn {
+    display: grid;
+    place-items: center;
+    text-decoration: none;
+}
+
+.back-link {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    align-self: center;
+}
+
+.back-link:hover {
+    color: var(--accent);
+}
+
 @media (max-width: 860px) {
     .page-shell {
         grid-template-columns: 1fr;
@@ -255,14 +246,7 @@ input:focus {
         padding: 32px 28px;
     }
 
-    .login-card {
+    .recover-card {
         padding: 30px 24px;
     }
-}
-
-
-.logo img {
-    width: 42px;
-    height: 42px;
-    object-fit: contain;
 }

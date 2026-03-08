@@ -5,23 +5,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email enviado | Assertare</title>
-    <link rel="stylesheet" href="auth.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="recover.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container">
-        <div class="card">
-            <div class="logo">A</div>
-            <h1>Email enviado</h1>
-            <p class="info">
-                Se o email estiver cadastrado, você receberá um link para redefinir sua senha.
-            </p>
-            <a href="login.html">
-                <button>
-                    Voltar ao login
-                </button>
-            </a>
-        </div>
-    </div>
+    <main class="page-shell">
+        <section class="brand-panel" aria-label="Confirmação de envio">
+            <div class="brand-content">
+                <p class="brand-label">Recuperação em andamento</p>
+                <h1>Instruções enviadas com sucesso.</h1>
+                <p>
+                    Confira seu e-mail e siga o passo a passo para criar uma nova senha com segurança.
+                </p>
+            </div>
+        </section>
+
+        <section class="recover-card" aria-label="Confirmação">
+            <div class="logo" aria-hidden="true"><img src="/auth/image/logo.png" alt=""></div>
+            <h2>Email enviado</h2>
+            <p id="emailInfo" class="subtitle">Se o e-mail estiver cadastrado, você receberá orientações para redefinir a senha.</p>
+            <a href="login.html" class="primary-btn link-btn">Voltar ao login</a>
+        </section>
+    </main>
+
+    <script>
+        (() => {
+            const email = localStorage.getItem("assertare.recovery.email")
+            const emailInfo = document.getElementById("emailInfo")
+
+            if (email && emailInfo) {
+                emailInfo.textContent = `As orientações de alteração de senha foram enviadas para ${email}.`
+            }
+        })()
+    </script>
 </body>
+
 </html>
